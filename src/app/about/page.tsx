@@ -50,7 +50,7 @@ export default function AboutAIPage() {
             Join the Agentic AI Community
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            Whether you're writing code, researching behavior, or just
+            Whether you&apos;re writing code, researching behavior, or just
             passionate about where AI is headed your voice matters. Contribute,
             collaborate, and become a part of a movement that’s reshaping the
             way we think about intelligence.

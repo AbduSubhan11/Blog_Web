@@ -48,7 +48,7 @@ export default function BlogDetail({ params }: { params: { id: string } }) {
     };
 
     userBlogs();
-  }, []);
+  }, [params.id]);
 
   return (
     <section className="bg-[#141414] text-white min-h-screen py-16 font-sans">

@@ -25,7 +25,7 @@ export default function ContactSection() {
         toast.error("Message not sent")
       }
     } catch (err) {
-      toast.error("Something went wrong.");
+      toast.error(`Something went wrong. ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }

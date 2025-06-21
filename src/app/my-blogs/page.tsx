@@ -2,7 +2,7 @@
 import { fetchUserBlogs } from "@/components/fetch-user-blogs";
 import { CardContainer } from "@/components/ui/3d-card";
 import { Blog } from "@/Data/blog-types";
-import { Delete, Edit, Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -55,7 +55,7 @@ export default function MyBlogs() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);

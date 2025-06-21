@@ -62,7 +62,7 @@ export default function BlogList() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);

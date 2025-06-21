@@ -12,13 +12,13 @@ export const StickyScroll = ({
   content: {
     title: string;
     description: string;
-    content?: React.ReactNode | any;
+    content?: React.ReactNode | string;
   }[];
   contentClassName?: string;
   backgroundImages: string[];
 }) => {
   const [activeCard, setActiveCard] = React.useState(0);
-  const ref = useRef<any>(null);
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     container: ref,
     offset: ["start start", "end start"],

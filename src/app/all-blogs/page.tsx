@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Edit, Heart, Heart as HeartFilled, Trash } from "lucide-react";
 import { FetchAllUsersBlogs } from "@/components/fetch-all-users-blogs";
-import { Blog } from "@/Data/blog-types";
 
 type blog = {
   _id: string;
@@ -100,7 +99,7 @@ export default function AllBlogs() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);

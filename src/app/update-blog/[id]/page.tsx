@@ -51,8 +51,8 @@ export default function UpdateBlog({ params }: { params: { id: string } }) {
         } else {
           toast.error(data.message || "Failed to fetch blog data.");
         }
-      } catch (err) {
-        toast.error("Failed to load blog data.");
+      } catch (error) {
+        toast.error(`Failed to log blog data. ${error instanceof Error ? error.message : String(error)}`);
       }
     };
 
