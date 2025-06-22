@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Edit, Heart, Trash } from "lucide-react";
-
 import Link from "next/link";
 import { Blog } from "@/Data/blog-types";
 import { toast } from "sonner";
@@ -20,22 +19,21 @@ const categories = [
 export default function BlogList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString || "null");
+  // const [user, setUser] = useState<any>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
 
   useEffect(() => {
-    const userBlogs = async () => {
-      const data = await fetchUserBlogs();
-      if (data) {
-        setBlogs(data);
-      }
-      return;
-    };
+    const userString = localStorage.getItem("user");
+    const parsedUser = JSON.parse(userString || "null");
+    // setUser(parsedUser);
 
-    if (user) {
-      userBlogs();
+    if (parsedUser) {
+      fetchUserBlogs().then((data) => {
+        if (data) {
+          setBlogs(data);
+        }
+      });
     }
   }, []);
 
@@ -62,7 +60,11 @@ export default function BlogList() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
+      toast.error(
+        `Something went wrong. ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);
@@ -156,7 +158,6 @@ export default function BlogList() {
                           blog.description.slice(1)
                         : ""}
                     </p>
-                   
                   </div>
                   <div className="flex items-center gap-4 text-sm ">
                     <div className="flex items-center space-x-1 text-[11px]">

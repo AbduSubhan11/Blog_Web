@@ -26,8 +26,12 @@ type blog = {
 };
 
 export default function AllBlogs() {
+  // if (typeof window === "undefined") {
+  //   return null;
+  // }
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<blog | null>(null);
+
   const userString = localStorage.getItem("user");
   const user = JSON.parse(userString || "null");
   const [blogs, setBlogs] = useState<blog[]>([]);
@@ -99,7 +103,11 @@ export default function AllBlogs() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
+      toast.error(
+        `Something went wrong. ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);

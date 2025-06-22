@@ -12,7 +12,6 @@ const categories = [
   "Other",
 ];
 
-
 export default function Create() {
   const [selectedcategory, setSelectedcategory] = useState<string[]>([]);
   const [title, setTitle] = useState("");
@@ -39,8 +38,10 @@ export default function Create() {
       return;
     }
 
-    if (!localStorage.getItem("token") && !localStorage.getItem("user"))
-      return toast.error("You are not logged in!");
+    if (typeof window !== "undefined") {
+      if (!localStorage.getItem("token") && !localStorage.getItem("user"))
+        return toast.error("You are not logged in!");
+    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -90,9 +91,7 @@ export default function Create() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Blog Image Upload */}
           <div>
-            <label className="block font-medium text-[#fff]">
-              Blog Image:
-            </label>
+            <label className="block font-medium text-[#fff]">Blog Image:</label>
 
             {/* IMAGE UPLOADER  */}
             <FileUpload

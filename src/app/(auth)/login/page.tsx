@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 
-
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -31,8 +30,10 @@ export default function Login() {
       });
 
       const data = await res.json();
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
 
       if (data.message) {
         toast.error(data.message);
@@ -52,7 +53,6 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#141414] text-white">
-
       <form
         onSubmit={handleSubmit}
         className="bg-[#1f1f1f] p-6 md:p-8 rounded shadow-md w-[95%] space-y-6 max-w-lg"

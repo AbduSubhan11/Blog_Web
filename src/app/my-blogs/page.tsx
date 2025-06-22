@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function MyBlogs() {
+//   if (typeof window === 'undefined') {
+//  return null; 
+// }
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
 
