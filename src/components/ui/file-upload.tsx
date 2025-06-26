@@ -30,11 +30,11 @@ const secondaryVariant = {
 export const FileUpload = ({
   onChange,
   image,
-  isImage
+  isImage,
 }: {
   onChange?: (files: File[]) => void;
   image?: File | string | null;
-  isImage?:boolean
+  isImage?: boolean;
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -70,6 +70,7 @@ export const FileUpload = ({
           ref={fileInputRef}
           id="file-upload-handle"
           type="file"
+           accept=".png"
           onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
           className="hidden"
         />
@@ -81,28 +82,29 @@ export const FileUpload = ({
             Upload Image
           </p>
           <p className="relative z-20 text-center font-sans font-semibold text-[#969696] dark:text-neutral-300 text-base mt-2">
-            Drag or drop your files here or click to upload
+            Drag and drop your file here or click to upload (png, jpg, jpeg)
           </p>
-            {/* Display selected image */}
-            {image && (
-              <div className="mt-4 flex items-center justify-center">
-                <Image
-                  width={1000}
-                  height={1000}
-                  src={
-                    isImage && image instanceof File
-                      ? URL.createObjectURL(image)
-                      : typeof image === "string"
-                        ? image
-                        : files[0]
-                          ? URL.createObjectURL(files[0])
-                          : ""
-                  }
-                  alt="Uploaded"
-                  className="max-w-[30%] md:max-w-[40%] lg:max-w-[20%] h-auto rounded-md z-20"
-                />
-              </div>
-            )}
+
+          {/* Display selected image */}
+          {image && (
+            <div className="mt-4 flex items-center justify-center">
+              <Image
+                width={1000}
+                height={1000}
+                src={
+                  isImage && image instanceof File
+                    ? URL.createObjectURL(image)
+                    : typeof image === "string"
+                    ? image
+                    : files[0]
+                    ? URL.createObjectURL(files[0])
+                    : ""
+                }
+                alt="Uploaded"
+                className="max-w-[30%] md:max-w-[40%] lg:max-w-[20%] h-auto rounded-md z-20"
+              />
+            </div>
+          )}
           <div className="relative w-full mt-5 sm:mt-10 max-w-xl mx-auto">
             {(files.length > 0 || isImage || image) &&
               files.map((file, idx) => (
