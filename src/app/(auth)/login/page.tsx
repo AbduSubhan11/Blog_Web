@@ -1,12 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 
+interface LoginResponse {
+  token?: string;
+  user?: {
+    [key: string]: unknown; 
+  };
+  message?: string;
+}
+
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState<LoginResponse | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,11 +38,8 @@ export default function Login() {
         credentials: "include",
       });
 
-      const data = await res.json();
-      if (typeof window !== "undefined") {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
+      const data: LoginResponse = await res.json();
+      setLoginData(data);
 
       if (data.message) {
         toast.error(data.message);
@@ -50,6 +56,15 @@ export default function Login() {
       toast.error((error as Error).message);
     }
   };
+
+  useEffect(() => {
+    if (loginData && typeof window !== "undefined") {
+      if (loginData.token && loginData.user) {
+        localStorage.setItem("token", loginData.token);
+        localStorage.setItem("user", JSON.stringify(loginData.user));
+      }
+    }
+  }, [loginData]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#141414] text-white">
