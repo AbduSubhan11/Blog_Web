@@ -4,32 +4,69 @@ import { useRouter } from "next/navigation";
 import { Camera } from "lucide-react";
 import { toast } from "sonner";
 
+
+interface UserData {
+  _id: string;
+  name: string;
+  email: string;
+  profilePicture?: string;
+}
+
 export default function UpdateProfile() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const userJSON = localStorage.getItem("user");
-  const data = userJSON ? JSON.parse(userJSON) : {};
-  
-  console.log("data", data._id, typeof(data._id));
+  // const userJSON = localStorage.getItem("user");
+  // const data = userJSON ? JSON.parse(userJSON) : {};
+
+  const [data, setData] = useState<UserData | null>(null);
+
+  console.log("data", data?._id, typeof data?._id);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
 
   const [formData, setFormData] = useState({
-    name: data.name || "",
-    email: data.email || "",
+    name: data?.name || "",
+    email: data?.email || "",
     profilePicture: null as File | null,
   });
+
+  useEffect(() => {
+    if (data?.name || data?.email) {
+      setFormData({
+        name: data?.name || "",
+        email: data?.email || "",
+        profilePicture: null,
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const userJSON = localStorage.getItem("user");
+    const parsed = userJSON ? JSON.parse(userJSON) : null;
+
+    if (!parsed || !parsed._id) {
+      toast.error("You must be logged in to update your profile.");
+      router.push("/login");
+      return;
+    }
+
+    setData(parsed);
+
+    if (parsed.profilePicture && typeof parsed.profilePicture === "string") {
+      setPreviewUrl(parsed.profilePicture);
+    }
+  }, []);
 
   useEffect(() => {
     if (file) {
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
       return () => URL.revokeObjectURL(url);
-    } else if (data.profilePicture && typeof data.profilePicture === "string") {
-      setPreviewUrl(data.profilePicture);
+    } else if (data?.profilePicture && typeof data?.profilePicture === "string") {
+      setPreviewUrl(data?.profilePicture);
     }
-  }, [file, data.profilePicture]);
+  }, [file, data?.profilePicture]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -44,15 +81,15 @@ export default function UpdateProfile() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const form = new FormData();
-    form.append("name", formData.name);
-    form.append("email", formData.email);
-    if (formData.profilePicture) {
-      form.append("profilePicture", formData.profilePicture);
+    form.append("name", formData?.name);
+    form.append("email", formData?.email);
+    if (formData?.profilePicture) {
+      form.append("profilePicture", formData?.profilePicture);
     }
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL_AUTH}/updateprofile/${data._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL_AUTH}/updateprofile/${data?._id}`,
         {
           method: "PUT",
           headers: {
@@ -65,11 +102,11 @@ export default function UpdateProfile() {
       const resdata = await res.json();
       console.log("after submitting", resdata);
 
-      if (!res.ok) throw new Error(resdata.message);
+      if (!res.ok) throw new Error(resdata?.message);
 
-      localStorage.setItem("user", JSON.stringify(resdata.user));
-      if (resdata.token) {
-        localStorage.setItem("token", resdata.token);
+      localStorage.setItem("user", JSON.stringify(resdata?.user));
+      if (resdata?.token) {
+        localStorage.setItem("token", resdata?.token);
       }
 
       toast.success("Profile updated successfully!");
@@ -79,6 +116,8 @@ export default function UpdateProfile() {
       toast.error(`Profile Update failed: ${message}`);
     }
   };
+
+  if (!data?._id) return null;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#141414] text-white">
@@ -123,7 +162,7 @@ export default function UpdateProfile() {
         <input
           type="text"
           name="name"
-          value={formData.name}
+          value={formData?.name}
           onChange={handleChange}
           placeholder="Name"
           className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
@@ -132,7 +171,7 @@ export default function UpdateProfile() {
         <input
           type="email"
           name="email"
-          value={formData.email}
+          value={formData?.email}
           onChange={handleChange}
           placeholder="Email"
           className="w-full p-2 bg-gray-800 border border-gray-700 rounded"

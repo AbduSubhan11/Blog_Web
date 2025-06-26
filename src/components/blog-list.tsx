@@ -5,7 +5,7 @@ import { ArrowUpRight, Edit, Heart, Trash } from "lucide-react";
 import Link from "next/link";
 import { Blog } from "@/Data/blog-types";
 import { toast } from "sonner";
-import { fetchUserBlogs } from "./fetch-user-blogs";
+import { FetchUserBlogs } from "./fetch-user-blogs";
 
 const categories = [
   "All",
@@ -29,7 +29,7 @@ export default function BlogList() {
     // setUser(parsedUser);
 
     if (parsedUser) {
-      fetchUserBlogs().then((data) => {
+      FetchUserBlogs().then((data) => {
         if (data) {
           setBlogs(data);
         }

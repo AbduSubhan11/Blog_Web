@@ -1,5 +1,5 @@
 "use client";
-import { fetchUserBlogs } from "@/components/fetch-user-blogs";
+import { FetchUserBlogs } from "@/components/fetch-user-blogs";
 import { CardContainer } from "@/components/ui/3d-card";
 import { Blog } from "@/Data/blog-types";
 import { Edit, Trash } from "lucide-react";
@@ -9,29 +9,36 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function MyBlogs() {
-//   if (typeof window === 'undefined') {
-//  return null; 
-// }
+  //   if (typeof window === 'undefined') {
+  //  return null;
+  // }
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
 
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString || "null");
+  // const userString = localStorage.getItem("user");
+  // const user = JSON.parse(userString || "null");
 
   useEffect(() => {
-    const userBlogs = async () => {
-      const data = await fetchUserBlogs();
-      if (data) {
-        setBlogs(data);
-      }
-      return;
-    };
+    if (typeof window !== "undefined") {
+      const userString = localStorage.getItem("user");
+      const parsedUser = userString ? JSON.parse(userString) : null;
 
-    if (user) {
-      userBlogs();
-    } else {
-      toast.error("You must be logged in to view your blogs.");
+      if (!parsedUser) {
+        toast.error("You must be logged in to view your blogs.");
+        return;
+      }
+
+      const userBlogs = async () => {
+        const data = await FetchUserBlogs();
+        if (data) {
+          setBlogs(data);
+        }
+      };
+
+      if (parsedUser) {
+        userBlogs();
+      }
     }
   }, []);
 
@@ -58,7 +65,11 @@ export default function MyBlogs() {
         toast.error("Failed to delete blog.");
       }
     } catch (error) {
-      toast.error(`Something went wrong. ${error instanceof Error ? error.message : String(error)}`);
+      toast.error(
+        `Something went wrong. ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     } finally {
       setShowDeleteModal(false);
       setBlogToDelete(null);

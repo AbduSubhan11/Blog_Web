@@ -32,9 +32,25 @@ export default function AllBlogs() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<blog | null>(null);
 
-  const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString || "null");
+  // const userString = localStorage.getItem("user");
+  // const user = JSON.parse(userString || "null");
   const [blogs, setBlogs] = useState<blog[]>([]);
+
+  const [user, setUser] = useState<{
+    _id: string;
+ 
+  }>({ _id: "" });
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      try {
+        setUser(JSON.parse(userString));
+      } catch (err) {
+        console.error("Error parsing user from localStorage:", err);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const userBlogs = async () => {

@@ -1,6 +1,6 @@
 "use client";
 import { FileUpload } from "@/components/ui/file-upload";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 const categories = [
@@ -19,6 +19,16 @@ export default function Create() {
   const [image, setImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      const user = localStorage.getItem("user");
+      if (!token && !user) {
+        toast.error("You are not logged in!");
+      }
+    }
+  }, []);
+
   const handleTagToggle = (tag: string) => {
     setSelectedcategory((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
@@ -36,11 +46,6 @@ export default function Create() {
     if (!title || !description || !image) {
       toast.error("All fields are required!");
       return;
-    }
-
-    if (typeof window !== "undefined") {
-      if (!localStorage.getItem("token") && !localStorage.getItem("user"))
-        return toast.error("You are not logged in!");
     }
 
     const formData = new FormData();
