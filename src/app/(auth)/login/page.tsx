@@ -7,7 +7,7 @@ import { toast } from "sonner";
 interface LoginResponse {
   token?: string;
   user?: {
-    [key: string]: unknown; 
+    [key: string]: unknown;
   };
   message?: string;
 }
@@ -58,7 +58,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (loginData && typeof window !== "undefined") {
+    if (!window.localStorage || typeof window === "undefined") return;
+    if (loginData) {
       if (loginData.token && loginData.user) {
         localStorage.setItem("token", loginData.token);
         localStorage.setItem("user", JSON.stringify(loginData.user));
