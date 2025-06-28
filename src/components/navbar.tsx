@@ -1,13 +1,23 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Profile } from "./profile";
 import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const route = usePathname();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      const user = localStorage.getItem("user");
+
+      setIsLoggedIn(!!(token && user));
+    }
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -30,7 +40,7 @@ export default function Navbar() {
                   alt="Logo"
                   width={40}
                   height={40}
-                  className="mr-2 rounded-full" 
+                  className="mr-2 rounded-full"
                 />
                 FutureTech
               </span>
@@ -38,7 +48,6 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Links */}
-
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
@@ -55,33 +64,29 @@ export default function Navbar() {
             ))}
           </div>
 
+          {/* Desktop Right Side */}
           <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/contact"
-              className="bg-yellow-500 text-[#141414]  py-2 px-4 rounded hover:bg-yellow-600 transition"
+              className="bg-yellow-500 text-[#141414] py-2 px-4 rounded hover:bg-yellow-600 transition"
             >
               Contact Us
             </Link>
 
-            {/* LOGIN BUTTON*/}
+            {!isLoggedIn && (
+              <Link
+                href="/login"
+                className="bg-yellow-500 text-[#141414] py-2 px-4 rounded hover:bg-yellow-600 transition"
+              >
+                Login
+              </Link>
+            )}
 
-            {!localStorage.getItem("token") &&
-              !localStorage.getItem("user") && (
-                <Link
-                  href="/login"
-                  className="bg-yellow-500 text-[#141414]  py-2 px-4 rounded hover:bg-yellow-600 transition"
-                >
-                  Login
-                </Link>
-              )}
-
-            {localStorage.getItem("token") &&
-              localStorage.getItem("user") && (
-                <div className="relative">
-                  {/* PROFILE PAGE */}
-                  <Profile />
-                </div>
-              )}
+            {isLoggedIn && (
+              <div className="relative">
+                <Profile />
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -130,20 +135,30 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+
               <Link
                 href="/contact"
-        className="block px-3 py-2 text-gray-300 hover:text-white"
+                className="block px-3 py-2 text-gray-300 hover:text-white"
                 onClick={() => setIsOpen(false)}
               >
                 Contact Us
               </Link>
-              <Link
-                href="/login"
-                className="block px-3 text-left py-2 rounded text-[#141414] bg-yellow-500 hover:bg-yellow-600"
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
+
+              {!isLoggedIn && (
+                <Link
+                  href="/login"
+                  className="block px-3 text-left py-2 rounded text-[#141414] bg-yellow-500 hover:bg-yellow-600"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
+
+              {isLoggedIn && (
+                <div className="px-3 py-2">
+                  <Profile />
+                </div>
+              )}
             </div>
           </div>
         )}
