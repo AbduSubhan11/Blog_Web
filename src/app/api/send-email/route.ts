@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const mailOptions = {
       from: email,
       to: process.env.RECEIVER_EMAIL,
-      subject: `New Contact Form Submission from Portfolio: ${subject}`,
+      subject: `New Contact Form Submission from FutureTech Blog: ${subject}`,
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
