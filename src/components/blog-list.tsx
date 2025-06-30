@@ -19,14 +19,12 @@ const categories = [
 export default function BlogList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const [user, setUser] = useState<any>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
     const parsedUser = JSON.parse(userString || "null");
-    // setUser(parsedUser);
 
     if (parsedUser) {
       FetchUserBlogs().then((data) => {
@@ -81,7 +79,7 @@ export default function BlogList() {
       <div className="min-h-screen bg-[#141414] text-white space-y-12">
         {/* HEADER */}
         <section className="bg-[#191919] text-white py-16 ">
-          <div className="2xl:max-w-[1400px] w-[90%] mx-auto  flex flex-col md:flex-row justify-between items-start md:items-center ">
+          <div className="2xl:max-w-[1400px] w-[90%] mx-auto  flex flex-col xl:flex-row justify-between items-start xl:items-center ">
             <div>
               <span className="bg-[#2a2a2a] text-sm text-gray-300 px-3 py-1 rounded-md mb-2 inline-block">
                 A Knowledge Treasure Trove
@@ -92,7 +90,7 @@ export default function BlogList() {
             </div>
             <Link
               href="/my-blogs"
-              className="mt-6 md:mt-0 inline-flex items-center group gap-2 bg-[#1d1d1d] hover:bg-yellow-500 hover:text-[#141414] text-gray-200 px-5 py-3 rounded-md text-sm transition-all duration-500 border border-neutral-700"
+              className="mt-6 xl:mt-0 inline-flex items-center group gap-2 bg-[#1d1d1d] hover:bg-yellow-500 hover:text-[#141414] text-gray-200 px-5 py-3 rounded-md text-sm transition-all duration-500 border border-neutral-700"
             >
               View All My Blogs{" "}
               <ArrowUpRight className="w-4 h-4 group-hover:text-[#141414] text-yellow-400" />
