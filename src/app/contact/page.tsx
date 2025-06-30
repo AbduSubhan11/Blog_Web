@@ -13,9 +13,12 @@ export default function ContactSection() {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+     const res = await fetch("/api/send-email", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
