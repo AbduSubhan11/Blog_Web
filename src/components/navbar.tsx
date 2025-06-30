@@ -48,7 +48,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -155,7 +155,8 @@ export default function Navbar() {
               )}
 
               {isLoggedIn && (
-                <div className="px-3 py-2">
+                <div className="px-3 py-2 text-gray-300 hover:text-white flex items-center gap-3">
+                  <h2>Profile </h2>
                   <Profile />
                 </div>
               )}

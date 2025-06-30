@@ -78,7 +78,7 @@ export default function BlogList() {
     <>
       <div className="min-h-screen bg-[#141414] text-white space-y-12">
         {/* HEADER */}
-        <section className="bg-[#191919] text-white py-16 ">
+        <section className="bg-[#191919] text-white py-10 md:py-16 ">
           <div className="2xl:max-w-[1400px] w-[90%] mx-auto  flex flex-col xl:flex-row justify-between items-start xl:items-center ">
             <div>
               <span className="bg-[#2a2a2a] text-sm text-gray-300 px-3 py-1 rounded-md mb-2 inline-block">

@@ -77,7 +77,7 @@ export default function FAQsSection() {
   return (
     <div className="min-h-screen bg-[#141414] text-white">
       {/* HEADER */}
-      <section className="bg-[#191919] text-white py-16 ">
+      <section className="bg-[#191919] text-white py-10 md:py-16 ">
         <div className="2xl:max-w-[1400px] w-[90%] mx-auto text-left flex lg:flex-row flex-col items-start lg:items-center justify-between">
           <div>
             <span className="bg-[#2a2a2a] text-sm text-gray-300 px-3 py-1 rounded-md mb-4 inline-block">
@@ -107,7 +107,7 @@ export default function FAQsSection() {
           {faqData.map((faq) => (
             <div
               key={faq.id}
-              className="bg-[#1d1d1d] border border-neutral-700 rounded-lg overflow-hidden hover:border-neutral-600 transition-colors"
+              className="bg-[#1d1d1d] border border-neutral-700 min-h-14 rounded-lg overflow-hidden hover:border-neutral-600 transition-colors"
             >
               <button
                 onClick={() => toggleFAQ(faq.id)}
