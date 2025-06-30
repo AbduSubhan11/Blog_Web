@@ -65,7 +65,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Right Side */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6">
             <Link
               href="/contact"
               className="bg-yellow-500 text-[#141414] py-2 px-4 rounded hover:bg-yellow-600 transition"
@@ -90,7 +90,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white focus:outline-none"
@@ -123,7 +123,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden w-fit">
+          <div className="lg:hidden w-fit">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navLinks.map((link) => (
                 <Link

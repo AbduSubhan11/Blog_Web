@@ -46,7 +46,7 @@ export const AnimatedTestimonials = ({
   };
   return (
     <div className="bg-[#191919] p-6 lg:p-0 overflow-hidden">
-      <div className="mx-auto max-w-3xl py-20 font-sans antialiased ">
+      <div className="mx-auto max-w-3xl py-4 md:py-20 font-sans antialiased ">
         <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
           <div>
             <div className="relative h-80 w-full">

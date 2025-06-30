@@ -107,7 +107,7 @@ export default function BlogList() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded border border-neutral-700 hover:bg-yellow-600 hover:text-[#141414] transition-all duration-500 ${
+                className={`px-4 py-2 rounded border border-neutral-700 hover:bg-yellow-600 hover:text-[#141414] transition-all duration-300 ${
                   selectedCategory === cat ? "bg-yellow-500 text-[#141414]" : ""
                 }`}
               >
