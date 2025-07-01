@@ -61,7 +61,7 @@ export function Profile() {
 
         <div className="mt-8 space-y-4 text-[#807f7f]">
           <Link
-            href={"/update-profile"}
+            href={"/dashboard"}
             className="flex items-center gap-2 hover:text-gray-400"
           >
             <User className="w-4 h-4" />

@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Edit, Heart, Trash } from "lucide-react";
 import Link from "next/link";
-import { Blog } from "@/Data/blog-types";
 import { toast } from "sonner";
-import { FetchUserBlogs } from "./fetch-user-blogs";
+import { FetchAllUsersBlogs } from "./fetch-all-users-blogs";
+import { IconHeartFilled } from "@tabler/icons-react";
 
 const categories = [
   "All",
@@ -16,20 +16,54 @@ const categories = [
   "Emerging Technologies",
 ];
 
+
+
+export type Blog = {
+    _id: string;
+    title: string;
+    description: string;
+    image: string;
+    category?: string[];
+    tags?: string[];
+    like: string[];
+    userId: {
+      _id: string;
+      name: string;
+      email: string;
+      profilePicture?: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+  };
+  
+
 export default function BlogList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const [user, setUser] = useState<any>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
+   const [user, setUser] = useState<{
+    _id: string;
+ 
+  }>({ _id: "" });
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      try {
+        setUser(JSON.parse(userString));
+      } catch (err) {
+        console.error("Error parsing user from localStorage:", err);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
     const parsedUser = JSON.parse(userString || "null");
-    // setUser(parsedUser);
 
     if (parsedUser) {
-      FetchUserBlogs().then((data) => {
+      FetchAllUsersBlogs().then((data) => {
         if (data) {
           setBlogs(data);
         }
@@ -71,11 +105,44 @@ export default function BlogList() {
     }
   };
 
+    const handleLike = async (blogId: string) => {
+    if (!user?._id) {
+      toast.error("You must be logged in to like a blog.");
+      return;
+    }
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL_BLOG}/bloglike/${blogId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ userId: user._id }),
+      }
+    );
+    if (!res.ok) {
+      toast.error("Failed to like the blog.");
+      return;
+    }
+    const updatedBlog = await res.json();
+    const isNowLiked = updatedBlog.like.includes(user._id);
+    toast.success(
+      isNowLiked ? "Blog liked successfully!" : "Blog unliked successfully!"
+    );
+    setBlogs((prev) =>
+      prev.map((b) => (b._id === updatedBlog._id ? updatedBlog : b))
+    );
+  };
+
   const filteredBlogs =
     selectedCategory === "All"
       ? blogs
       : blogs.filter((b) => b.category?.includes(selectedCategory));
 
+      console.log(filteredBlogs);
+      
   return (
     <>
       <div className="min-h-screen bg-[#141414] text-white space-y-12">
@@ -136,7 +203,15 @@ export default function BlogList() {
                   className="rounded-md "
                 />
                 <div className="flex-1 space-y-4">
-                  <div className="text-gray-400 font-semibold">
+                  <div className="text-gray-400 font-semibold flex items-center">
+                    <Image
+                      src={blog.userId.profilePicture || "/default-avatar.png"}
+                      alt={blog.userId.name}
+                      width={30}
+                      height={30}
+                      priority
+                      className="rounded-full inline-block mr-2"
+                    />
                     <h2>
                       {new Date(blog.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -160,27 +235,55 @@ export default function BlogList() {
                     </p>
                   </div>
                   <div className="flex items-center gap-4 text-sm ">
-                    <div className="flex items-center space-x-1 text-[11px]">
-                      <Heart size={16} className="text-red-500" fill="red" />
-                      <p>{blog.like.length}</p>
-                    </div>
-                    <div
-                      className="flex items-center space-x-1 text-red-500 cursor-pointer hover:text-red-600"
-                      onClick={() => {
-                        setBlogToDelete(blog);
-                        setShowDeleteModal(true);
-                      }}
-                    >
-                      <Trash size={16} />
-                      <p>Delete</p>
-                    </div>
+                     {blog.userId._id !== user?._id ? (
+                      <div className="flex items-center gap-4 text-sm ">
+                        {/* LIKE BUTTON */}
+                        <button
+                          onClick={() => handleLike(blog._id)}
+                          className="flex items-center gap-1 text-red-500 transition"
+                        >
+                          {user?._id && blog.like?.includes(user._id) ? (
+                            <IconHeartFilled fill="red" className="w-5 h-5" />
+                          ) : (
+                            <Heart className="w-5 h-5 text-gray-400" />
+                          )}
 
-                    <div className="flex items-center space-x-1 cursor-pointer hover:text-gray-300 ">
-                      <Edit size={16} />
-                      <Link href={`/update-blog/${blog._id}`} className="text-">
-                        Edit
-                      </Link>
-                    </div>
+                          <span
+                            className={`${
+                              user?._id && blog.like?.includes(user._id)
+                                ? "text-red-500"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {blog.like?.length}
+                          </span>
+                        </button>
+                      </div>
+                    ) : (
+                       <div className="flex items-center gap-4 text-sm ">
+                        {/* EDIT OR DELETE BUTTON */}
+                        <div
+                          className="flex items-center space-x-1 text-red-500 cursor-pointer hover:text-red-600"
+                          onClick={() => {
+                            setBlogToDelete(blog);
+                            setShowDeleteModal(true);
+                          }}
+                        >
+                          <Trash size={16} />
+                          <p>Delete</p>
+                        </div>
+
+                        <div className="flex items-center space-x-1 cursor-pointer hover:text-gray-300 ">
+                          <Edit size={16} />
+                          <Link
+                            href={`/update-blog/${blog._id}`}
+                            className="text-"
+                          >
+                            Edit
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <Link

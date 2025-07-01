@@ -9,15 +9,12 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function MyBlogs() {
-  //   if (typeof window === 'undefined') {
-  //  return null;
-  // }
+ 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<Blog | null>(null);
 
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const userString = localStorage.getItem("user");
-  // const user = JSON.parse(userString || "null");
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {

@@ -26,14 +26,10 @@ type blog = {
 };
 
 export default function AllBlogs() {
-  // if (typeof window === "undefined") {
-  //   return null;
-  // }
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<blog | null>(null);
 
-  // const userString = localStorage.getItem("user");
-  // const user = JSON.parse(userString || "null");
   const [blogs, setBlogs] = useState<blog[]>([]);
 
   const [user, setUser] = useState<{
