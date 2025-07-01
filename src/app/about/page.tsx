@@ -10,7 +10,7 @@ export default function AboutAIPage() {
       <div className="2xl:max-w-[1400px] w-[90%] mx-auto space-y-10">
         {/* Hero */}
         <Spotlight
-          className="top-0 left-0 right-0 h-full w-full opacity-65"
+          className="-top-[35%] md:top-0 -left-[50%] md:left-0 right-0 h-full w-full opacity-65"
           fill="white"
         />
         <div className="text-center space-y-4">

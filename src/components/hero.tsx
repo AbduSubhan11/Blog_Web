@@ -16,21 +16,21 @@ const people = [
   },
   {
     id: 2,
-    name: "Jane Smith",
+    name: "Dennis Ritchie",
     designation: "Product Designer",
     image:
       "/images/Hero/men1.avif",
   },
   {
     id: 3,
-    name: "Samuel Green",
+    name: "William Harris",
     designation: "AI Researcher",
     image:
       "/images/Hero/men2.avif",
   },
   {
     id: 4,
-    name: "Lisa Brown",
+    name: "James Anderson",
     designation: "Content Writer",
     image:
       "/images/Hero/men3.avif",
