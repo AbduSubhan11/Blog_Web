@@ -8,7 +8,6 @@ import {
   Eye,
   TrendingUp,
   Calendar,
-  PenTool,
   ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
@@ -103,7 +102,7 @@ export default function DashboardOverview({ user }: { user: User }) {
               👋
             </h2>
             <p className="text-gray-400">
-              Here's what's happening with your blog today.
+              Here&apos;s what&apos;s happening with your blog today.
             </p>
           </div>
           <div className="mt-4 md:mt-0 text-right">

@@ -47,10 +47,11 @@ const analyticsData = {
   ],
 }
 
+
 export default function Analytics() {
   const [timeRange, setTimeRange] = useState("6months")
 
-  const StatCard = ({ title, value, change, icon, color }: any) => (
+  const StatCard = ({ title, value, change, icon, color }: { title: string; value: number; change: number; icon: React.ReactNode; color: string }) => (
     <div className="bg-[#191919] border border-neutral-700 rounded-lg p-6 hover:border-neutral-600 transition-colors">
       <div className="flex items-center justify-between mb-4">
         <div className={`${color}`}>{icon}</div>
@@ -128,7 +129,7 @@ export default function Analytics() {
             Monthly Trends
           </h3>
           <div className="space-y-4">
-            {analyticsData.monthlyData.map((data, index) => (
+            {analyticsData.monthlyData.map((data) => (
               <div key={data.month} className="flex items-center justify-between">
                 <span className="text-gray-400 w-12">{data.month}</span>
                 <div className="flex-1 mx-4">

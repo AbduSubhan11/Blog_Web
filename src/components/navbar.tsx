@@ -17,7 +17,7 @@ export default function Navbar() {
 
       setIsLoggedIn(!!(token && user));
     }
-  }, []);
+  }, [route]);
 
   const navLinks = [
     { name: "Home", href: "/" },

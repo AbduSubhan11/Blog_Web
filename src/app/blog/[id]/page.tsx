@@ -25,7 +25,6 @@ type Blog = {
 
 export default function BlogDetail({ params }: { params: { id: string } }) {
   const [blogs, setBlogs] = useState<Blog>();
-  const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
   const [email, setEmail] = useState("");
 
   useEffect(() => {

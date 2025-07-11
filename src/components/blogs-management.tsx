@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import {
   Edit,
   Trash,
-  Eye,
-  Heart,
-  MessageSquare,
   Plus,
   Search,
   Calendar,
@@ -16,14 +13,6 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { IconHeartFilled } from "@tabler/icons-react";
 
-const categories = [
-  "Artificial Intelligence",
-  "Agentic Systems",
-  "Web Development",
-  "AI Ethics",
-  "Emerging Technologies",
-  "All",
-];
 
 type blog = {
   _id: number;
@@ -200,7 +189,7 @@ export default function BlogManagement() {
                   </h3>
                   <p className="text-gray-300 mb-6">
                     Are you sure you want to delete{" "}
-                    <strong>"{blogToDelete.title}"</strong>? This action cannot
+                    <strong>&quot;{blogToDelete.title}&quot;</strong>? This action cannot
                     be undone.
                   </p>
                   <div className="flex justify-center gap-4">

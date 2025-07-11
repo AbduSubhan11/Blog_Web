@@ -7,7 +7,6 @@ import {
   Settings,
   User,
   TrendingUp,
-  Bell,
   LogOut,
   Menu,
   X,
