@@ -2,11 +2,7 @@
 
 import { useState, useEffect } from "react";
 import {
-  BookOpen,
   Heart,
-  MessageSquare,
-  Eye,
-  TrendingUp,
   Calendar,
   ArrowUpRight,
 } from "lucide-react";
@@ -26,37 +22,6 @@ export type User = {
   createdAt: string;
   updatedAt: string;
 };
-
-const statsData = [
-  {
-    title: "Total Blogs",
-    value: "24",
-    change: "+3 this month",
-    icon: <BookOpen className="w-6 h-6" />,
-    color: "text-blue-400",
-  },
-  {
-    title: "Total Views",
-    value: "12.5K",
-    change: "+15% from last month",
-    icon: <Eye className="w-6 h-6" />,
-    color: "text-green-400",
-  },
-  {
-    title: "Total Likes",
-    value: "1,847",
-    change: "+8% from last month",
-    icon: <Heart className="w-6 h-6" />,
-    color: "text-red-400",
-  },
-  {
-    title: "Comments",
-    value: "342",
-    change: "+12% from last month",
-    icon: <MessageSquare className="w-6 h-6" />,
-    color: "text-yellow-400",
-  },
-];
 
 
 export default function DashboardOverview({ user }: { user: User }) {
@@ -98,7 +63,7 @@ export default function DashboardOverview({ user }: { user: User }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold mb-2">
-              Welcome back, {user?.name[0].toUpperCase() + user?.name.slice(1)}!
+              Welcome back, {user?.name[0]?.toUpperCase() + user?.name.slice(1)}!
               👋
             </h2>
             <p className="text-gray-400">
@@ -115,26 +80,6 @@ export default function DashboardOverview({ user }: { user: User }) {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {statsData.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-[#191919] border border-neutral-700 rounded-lg p-6 hover:border-neutral-600 transition-colors"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`${stat.color}`}>{stat.icon}</div>
-              <TrendingUp className="w-4 h-4 text-green-400" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-1">{stat.value}</h3>
-              <p className="text-sm text-gray-400 mb-2">{stat.title}</p>
-              <p className="text-xs text-green-400">{stat.change}</p>
-            </div>
-          </div>
-        ))}
       </div>
 
       {/* Recent Blogs */}

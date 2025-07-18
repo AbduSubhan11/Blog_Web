@@ -44,7 +44,7 @@ export default function AboutAIPage() {
       </div>
 
       {/* Join the Community */}
-      <div className="bg-[#191919] mt-20 py-6">
+      <div className="bg-[#191919] mt-20 py-10">
         <div className=" bg-[#191919] text-center 2xl:max-w-[1400px] w-[90%] mx-auto space-y-6">
           <h2 className="text-3xl font-semibold text-yellow-500">
             Join the Agentic AI Community

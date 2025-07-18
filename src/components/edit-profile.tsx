@@ -130,7 +130,7 @@ export default function EditProfile() {
     <div className="min-h-screen bg-[#141414] text-white">
 
       {/* Main Content */}
-      <div className="2xl:max-w-[1400px] w-[90%] mx-auto py-12">
+      <div className="2xl:max-w-[1400px] md:w-[90%] mx-auto py-12">
         <div className="max-w-2xl mx-auto">
           {/* Profile Header */}
           <div className="bg-[#191919] border border-neutral-700 rounded-lg p-6 mb-6">

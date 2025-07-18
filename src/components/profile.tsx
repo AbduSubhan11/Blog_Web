@@ -5,7 +5,7 @@ import {
   SheetHeader,
 } from "@/components/ui/sheet";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -67,12 +67,7 @@ export function Profile() {
             <User className="w-4 h-4" />
             Edit Profile
           </Link>
-
-          <button className="flex items-center gap-2 hover:text-gray-400">
-            <Settings className="w-4 h-4" />
-            Settings
-          </button>
-
+          
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 hover:text-gray-400"

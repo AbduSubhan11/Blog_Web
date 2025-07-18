@@ -96,7 +96,7 @@ export default function Create() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Blog Image Upload */}
           <div>
-            <label className="block font-medium text-[#fff]">Blog Image:</label>
+            <label className="block font-medium text-[#fff] md:mb-0 mb-4">Blog Image:</label>
 
             {/* IMAGE UPLOADER  */}
             <FileUpload

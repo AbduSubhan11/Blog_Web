@@ -1,18 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Edit,
-  Trash,
-  Plus,
-  Search,
-  Calendar,
-} from "lucide-react";
+import { Edit, Trash, Plus, Search, Calendar, Heart } from "lucide-react";
 import { FetchUserBlogs } from "./fetch-user-blogs";
 import { toast } from "sonner";
 import Link from "next/link";
-import { IconHeartFilled } from "@tabler/icons-react";
-
 
 type blog = {
   _id: number;
@@ -60,8 +52,8 @@ export default function BlogManagement() {
     const matchesSearch = blog.title
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
-   
-    return matchesSearch ;
+
+    return matchesSearch;
   });
 
   const handleDelete = (blogId: number) => {
@@ -80,7 +72,10 @@ export default function BlogManagement() {
             Manage all your blog posts in one place
           </p>
         </div>
-        <Link href="/create" className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-[#141414] rounded-md hover:bg-yellow-600 transition-colors font-medium">
+        <Link
+          href="/create"
+          className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-[#141414] rounded-md hover:bg-yellow-600 transition-colors font-medium"
+        >
           <Plus className="w-4 h-4" />
           Create New Blog
         </Link>
@@ -102,7 +97,6 @@ export default function BlogManagement() {
               />
             </div>
           </div>
-
         </div>
       </div>
 
@@ -111,7 +105,10 @@ export default function BlogManagement() {
         {filteredBlogs.length === 0 ? (
           <div className="p-12 text-center">
             <div className="text-gray-400 mb-4">No blogs found</div>
-            <Link href="/create" className="px-4 py-2 bg-yellow-500 text-[#141414] rounded-md hover:bg-yellow-600 transition-colors">
+            <Link
+              href="/create"
+              className="px-4 py-2 bg-yellow-500 text-[#141414] rounded-md hover:bg-yellow-600 transition-colors"
+            >
               Create Your Blog
             </Link>
           </div>
@@ -140,31 +137,33 @@ export default function BlogManagement() {
                         <p className="text-sm text-gray-400 line-clamp-2 mb-2">
                           {blog.description}
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-400">
-                          <span className="bg-[#2a2a2a] px-2 py-1 rounded text-xs">
-                            {blog.category}
-                          </span>
-
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3" />
-                            {new Date(blog.createdAt).toLocaleDateString()}
-                          </span>
-                        </div>
+                        
                       </div>
                     </div>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-6 text-sm text-gray-400">
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <span className="bg-[#2a2a2a] px-2 py-1 rounded text-xs">
+                        {blog.category}
+                      </span>
+
                       <span className="flex items-center gap-1">
-                        <IconHeartFilled className="w-4 h-4" fill="red" />
-                        {blog.like.length} likes
+                        <Heart className="w-3 h-3" />
+                        {blog.like.length}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(blog.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
 
                   {/* Actions */}
                   <div className="flex items-center gap-2">
-                    <Link href={`/update-blog/${blog._id}`} className="p-2 text-white hover:bg-[#252525] rounded-md transition-colors">
+                    <Link
+                      href={`/update-blog/${blog._id}`}
+                      className="p-2 text-white hover:bg-[#252525] rounded-md transition-colors"
+                    >
                       <Edit className="w-4 h-4" />
                     </Link>
                     <button
@@ -189,8 +188,8 @@ export default function BlogManagement() {
                   </h3>
                   <p className="text-gray-300 mb-6">
                     Are you sure you want to delete{" "}
-                    <strong>&quot;{blogToDelete.title}&quot;</strong>? This action cannot
-                    be undone.
+                    <strong>&quot;{blogToDelete.title}&quot;</strong>? This
+                    action cannot be undone.
                   </p>
                   <div className="flex justify-center gap-4">
                     <button

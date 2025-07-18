@@ -1,22 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import {
-  BarChart3,
-  BookOpen,
-  Settings,
-  User,
-  TrendingUp,
-  LogOut,
-  Menu,
-  X,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { BarChart3, BookOpen, User, LogOut, Menu, X } from "lucide-react";
 import DashboardOverview from "../../../components/dashboard-overview";
 import EditProfile from "../../../components/edit-profile";
 import BlogManagement from "../../../components/blogs-management";
-import Analytics from "../../../components/analytics";
 import Image from "next/image";
 import { toast } from "sonner";
+
+type user = {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  blog: string[];
+  profilePicture: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 const sidebarItems = [
   {
@@ -26,20 +28,54 @@ const sidebarItems = [
   },
   { id: "profile", label: "Edit Profile", icon: <User className="w-5 h-5" /> },
   { id: "blogs", label: "My Blogs", icon: <BookOpen className="w-5 h-5" /> },
-  {
-    id: "analytics",
-    label: "Analytics",
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
-  { id: "settings", label: "Settings", icon: <Settings className="w-5 h-5" /> },
 ];
 
 export default function DashboardLayout() {
   const [activeSection, setActiveSection] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const data = localStorage.getItem("user");
-  if (!data) return;
-  const user = data ? JSON.parse(data || "") : {};
+  const [logout, setLogout] = useState(false);
+  const [user, setUser] = useState<user>({
+    _id: "",
+    name: "",
+    email: "",
+    password: "",
+    isAdmin: false,
+    blog: [],
+    profilePicture: "",
+    createdAt: "",
+    updatedAt: "",
+  });
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    } else {
+      window.location.href = "/login";
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleLogout = async () => {
+      try {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL_AUTH}/logout`, {
+          method: "POST",
+          credentials: "include",
+        });
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        toast.success("Logout successful!");
+        window.location.href = "/login";
+      } catch (error) {
+        console.error("Logout failed", error);
+      }
+    };
+
+    if (logout) {
+      handleLogout();
+    }
+  }, [logout]);
 
   const renderContent = () => {
     switch (activeSection) {
@@ -49,30 +85,12 @@ export default function DashboardLayout() {
         return <EditProfile />;
       case "blogs":
         return <BlogManagement />;
-      case "analytics":
-        return <Analytics />;
       default:
         return <DashboardOverview user={user} />;
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL_AUTH}/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      toast.success("Logout successful!");
-
-      window.location.href = "/login";
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
-
+  if (!user) return null;
   return (
     <div className="min-h-screen bg-[#141414] text-white">
       {/* Mobile Menu Button */}
@@ -155,7 +173,7 @@ export default function DashboardLayout() {
           {/* Logout */}
           <div className="p-4 border-t border-neutral-700">
             <button
-              onClick={handleLogout}
+              onClick={() => setLogout(!logout)}
               className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-red-600 hover:text-white rounded-md transition-colors"
             >
               <LogOut className="w-5 h-5" />
