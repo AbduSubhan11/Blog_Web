@@ -1,5 +1,5 @@
 "use client";
-import { FileUpload } from "@/components/ui/file-upload";
+import { FileUpload } from "../../../components/ui/file-upload";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
