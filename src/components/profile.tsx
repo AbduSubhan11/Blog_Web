@@ -3,8 +3,8 @@ import {
   SheetTrigger,
   SheetContent,
   SheetHeader,
-} from "@/components/ui/sheet";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+} from "../components/ui/sheet";
+import { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar";
 import { LogOut, User } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
