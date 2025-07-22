@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
+  const token = request.cookies.get("token")?.value;
+  const publicRoute = ["/dashboard", "/create", "/my-blogs"];
+  const privateRoute = ["/login", "/register"];
+  const route = request.nextUrl.pathname;
 
-  if (!authHeader || !authHeader.startsWith("token ")) {
+  if (token && privateRoute.includes(route)) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+  if (!token && publicRoute.includes(route)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -11,5 +17,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboa"],
+  matcher: ["/dashboard", "/create", "/login", "/register", "/my-blogs" , "/"],
 };
