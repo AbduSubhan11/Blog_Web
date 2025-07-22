@@ -1,11 +1,11 @@
 "use client";
-import { CardContainer } from "@/components/ui/3d-card";
+import { CardContainer } from "../../../components/ui/3d-card";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Edit, Heart, Heart as HeartFilled, Trash } from "lucide-react";
-import { FetchAllUsersBlogs } from "@/components/fetch-all-users-blogs";
+import { FetchAllUsersBlogs } from "../../../components/fetch-all-users-blogs";
 
 type blog = {
   _id: string;

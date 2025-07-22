@@ -1,6 +1,6 @@
 "use client";
-import { Spotlight } from "@/components/ui/spotlight";
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { Spotlight } from "../../../components/ui/spotlight";
+import { StickyScroll } from "../../../components/ui/sticky-scroll-reveal";
 import Link from "next/link";
 
 
