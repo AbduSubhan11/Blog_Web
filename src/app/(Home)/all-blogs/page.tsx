@@ -245,7 +245,7 @@ export default function AllBlogs() {
                       ? blog.title[0].toUpperCase() + blog.title.slice(1)
                       : ""}
                   </h3>
-                  <p className="text-gray-300 text-sm line-clamp-2">
+                  <p className="text-gray-300 text-sm line-clamp-1">
                     {blog?.description
                       ? blog.description[0].toUpperCase() +
                         blog.description.slice(1)
