@@ -1,12 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BarChart3, BookOpen, User, LogOut, Menu, X } from "lucide-react";
+import {
+  BarChart3,
+  BookOpen,
+  User,
+  LogOut,
+  Menu,
+  X,
+  UserCog,
+} from "lucide-react";
 import DashboardOverview from "../../../components/dashboard-overview";
 import EditProfile from "../../../components/edit-profile";
 import BlogManagement from "../../../components/blogs-management";
 import Image from "next/image";
 import { toast } from "sonner";
+import AdminDashboard from "@/components/admin-dashboard";
 
 type user = {
   _id: string;
@@ -28,6 +37,7 @@ const sidebarItems = [
   },
   { id: "profile", label: "Edit Profile", icon: <User className="w-5 h-5" /> },
   { id: "blogs", label: "My Blogs", icon: <BookOpen className="w-5 h-5" /> },
+  { id: "admin", label: "Admin", icon: <UserCog className="w-5 h-5" /> },
 ];
 
 export default function DashboardLayout() {
@@ -85,6 +95,8 @@ export default function DashboardLayout() {
         return <EditProfile />;
       case "blogs":
         return <BlogManagement />;
+      case "admin":
+        return <AdminDashboard />;
       default:
         return <DashboardOverview user={user} />;
     }
@@ -149,24 +161,26 @@ export default function DashboardLayout() {
           {/* Navigation */}
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
-              {sidebarItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => {
-                      setActiveSection(item.id);
-                      setSidebarOpen(false);
-                    }}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
-                      activeSection === item.id
-                        ? "bg-yellow-500 text-[#141414] font-medium"
-                        : "text-gray-300 hover:bg-[#252525] hover:text-white"
-                    }`}
-                  >
-                    {item.icon}
-                    {item.label}
-                  </button>
-                </li>
-              ))}
+              {sidebarItems
+                .filter((item) => item.label !== "Admin" || user.isAdmin) 
+                .map((item) => (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => {
+                        setActiveSection(item.id);
+                        setSidebarOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
+                        activeSection === item.id
+                          ? "bg-yellow-500 text-[#141414] font-medium"
+                          : "text-gray-300 hover:bg-[#252525] hover:text-white"
+                      }`}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </button>
+                  </li>
+                ))}
             </ul>
           </nav>
 
