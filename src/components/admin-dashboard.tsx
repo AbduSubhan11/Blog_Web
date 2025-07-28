@@ -1,4 +1,5 @@
 "use client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -12,6 +13,7 @@ import { FetchAllUsersBlogs } from "./fetch-all-users-blogs";
 import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type Blog = {
   _id: string;
@@ -57,62 +59,86 @@ function AdminDashboard() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Admin Blog Dashboard</h1>
-      {blogs.length > 0 ? (
-        <div className="overflow-auto rounded-lg ">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Author</TableHead>
-                <TableHead>Title</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Likes</TableHead>
-                <TableHead className="text-center">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {blogs.map((blog) => (
-                <TableRow
-                  key={blog._id}
-                  className="hover:bg-[#191919] cursor-pointer transition-colors"
-                  onClick={() => router.push(`/blog/${blog._id}`)}
-                >
-                  <TableCell>{blog.userId.name}</TableCell>
-                  <TableCell className="">{blog.title}</TableCell>
-                  <TableCell className="max-w-sm">
-                    <p className="line-clamp-2 text-sm ">
-                      {blog.description}
-                    </p>
-                  </TableCell>
-                  <TableCell>{blog.like.length}</TableCell>
-                  <TableCell onClick={(e) => e.stopPropagation()}>
-                    <div className="flex justify-center gap-4">
-                      <button
-                        className="text-red-500 hover:text-red-600 flex items-center gap-1"
-                        // onClick logic for delete
+
+      {/* TABS */}
+      <div>
+        <Tabs defaultValue="users" className="">
+          <TabsList>
+            <TabsTrigger value="users">Users</TabsTrigger>
+            <TabsTrigger value="blogs">Blogs</TabsTrigger>
+          </TabsList>
+          <TabsContent value="users">
+            Make changes to your account here.
+          </TabsContent>
+          <TabsContent value="blogs">
+            {blogs.length > 0 ? (
+              <div className="overflow-auto rounded-lg ">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Author</TableHead>
+                      <TableHead>Blog Image</TableHead>
+                      <TableHead>Title</TableHead>
+                      <TableHead>Description</TableHead>
+                      <TableHead>Likes</TableHead>
+                      <TableHead className="text-center">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {blogs.map((blog) => (
+                      <TableRow
+                        key={blog._id}
+                        className="hover:bg-[#191919] cursor-pointer transition-colors"
+                        onClick={() => router.push(`/blog/${blog._id}`)}
                       >
-                        <Trash size={16} />
-                        <span className="text-sm">Delete</span>
-                      </button>
-                      <Link
-                        href={`/update-blog/${blog._id}`}
-                        className="text-blue-500 hover:text-blue-600 flex items-center gap-1"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Edit size={16} />
-                        <span className="text-sm">Edit</span>
-                      </Link>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      ) : (
-        <p className="text-center text-muted-foreground mt-10">
-          No blogs available.
-        </p>
-      )}
+                        <TableCell>{blog.userId.name}</TableCell>
+                        <TableCell>
+                          <Image
+                            src={blog.image}
+                            alt={blog.title}
+                            width={80}
+                            height={80}
+                          />
+                        </TableCell>
+                        <TableCell>{blog.title} lorem</TableCell>
+                        <TableCell className="max-w-sm">
+                          <p className="line-clamp-2 text-sm ">
+                            {blog.description}
+                          </p>
+                        </TableCell>
+                        <TableCell>{blog.like.length}</TableCell>
+                        <TableCell onClick={(e) => e.stopPropagation()}>
+                          <div className="flex justify-center gap-4">
+                            <button
+                              className="text-red-500 hover:text-red-600 flex items-center gap-1"
+                              // onClick logic for delete
+                            >
+                              <Trash size={16} />
+                              <span className="text-sm">Delete</span>
+                            </button>
+                            <Link
+                              href={`/update-blog/${blog._id}`}
+                              className="text-blue-500 hover:text-blue-600 flex items-center gap-1"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Edit size={16} />
+                              <span className="text-sm">Edit</span>
+                            </Link>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground mt-10">
+                No blogs available.
+              </p>
+            )}
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }
