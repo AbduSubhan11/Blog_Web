@@ -39,7 +39,7 @@ export default function Register() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL_AUTH}/register`,
+        `/api/register`, 
         {
           method: "POST",
           body: form,
