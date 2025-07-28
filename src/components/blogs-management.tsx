@@ -56,10 +56,38 @@ export default function BlogManagement() {
     return matchesSearch;
   });
 
-  const handleDelete = (blogId: number) => {
-    setBlogs(blogs.filter((blog: blog) => blog._id !== blogId));
-    setShowDeleteModal(false);
-    setBlogToDelete(null);
+  const handleDelete = async () => {
+    if (!blogToDelete) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL_BLOG}/blog/${blogToDelete._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `token ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Blog deleted successfully.");
+        setBlogs((prev) => prev.filter((b: blog) => b._id !== blogToDelete._id));
+      } else {
+        toast.error("Failed to delete blog.");
+      }
+    } catch (error) {
+      toast.error(
+        `Something went wrong. ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+    } finally {
+      setShowDeleteModal(false);
+      setBlogToDelete(null);
+    }
   };
 
   return (
@@ -137,11 +165,10 @@ export default function BlogManagement() {
                         <p className="text-sm text-gray-400 line-clamp-2 mb-2">
                           {blog.description}
                         </p>
-                        
                       </div>
                     </div>
 
-                    {/* Stats */}
+                   
                     <div className="flex items-center gap-4 text-sm text-gray-400">
                       <span className="bg-[#2a2a2a] px-2 py-1 rounded text-xs">
                         {blog.category}
@@ -199,7 +226,7 @@ export default function BlogManagement() {
                       Cancel
                     </button>
                     <button
-                      onClick={() => handleDelete(blogToDelete._id)}
+                      onClick={() => handleDelete()}
                       className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
                     >
                       Delete
