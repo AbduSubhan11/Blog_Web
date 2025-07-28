@@ -29,13 +29,13 @@ export default function Login() {
     if (!email || !password) return toast.error("All fields are required!");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_AUTH}/login`, {
+      const res = await fetch(`/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        credentials: "include",
+        // credentials: "include",
       });
 
       const data: LoginResponse = await res.json();
