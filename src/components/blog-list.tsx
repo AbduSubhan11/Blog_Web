@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { FetchAllUsersBlogs } from "./fetch-all-users-blogs";
 import { IconHeartFilled } from "@tabler/icons-react";
 
+
+
 const categories = [
   "All",
   "Artificial Intelligence",
