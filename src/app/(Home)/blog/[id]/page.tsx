@@ -86,7 +86,7 @@ export default function BlogDetail({ params }: { params: { id: string } }) {
               </span>
             </div>
           </div>
-          <h2 className="text-4xl font-bold leading-tight">
+          <h2 className="text-[26px] md:text-4xl font-bold leading-[30px] md:leading-tight lg:w-[55%]">
             {blogs?.title
               ? blogs.title[0].toUpperCase() + blogs.title.slice(1)
               : ""}

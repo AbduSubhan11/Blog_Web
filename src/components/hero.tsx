@@ -89,7 +89,7 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-3xl font-bold text-yellow-500">8K+</p>
-              <p className="text-[#807f7f]">Total Downloads</p>
+              <p className="text-[#807f7f]">Community Readers</p>
             </div>
             <div>
               <p className="text-3xl font-bold text-yellow-500">1K+</p>
