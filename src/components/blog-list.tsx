@@ -143,8 +143,6 @@ export default function BlogList() {
       ? blogs
       : blogs.filter((b) => b.category?.includes(selectedCategory));
 
-      console.log(filteredBlogs);
-      
   return (
     <>
       <div className="min-h-screen bg-[#141414] text-white space-y-12">

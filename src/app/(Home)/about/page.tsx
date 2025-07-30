@@ -5,24 +5,6 @@ import Link from "next/link";
 import { Users, Target, Heart, Lightbulb } from "lucide-react";
 import { FocusCards } from "@/components/ui/focus-cards";
 
-const methodology = [
-  {
-    title: "Research-First Approach",
-    description:
-      "Every article begins with thorough research from peer-reviewed sources, industry reports, and hands-on experimentation. We don't just report on AI trends—we test, validate, and provide practical insights based on real-world implementation.",
-  },
-  {
-    title: "Community-Driven Content",
-    description:
-      "Our content roadmap is shaped by community feedback, industry needs, and emerging challenges. We regularly survey our readers, engage with comments, and adapt our focus based on what matters most to practitioners in the field.",
-  },
-  {
-    title: "Practical Implementation Focus",
-    description:
-      "While we cover theoretical concepts, every piece of content includes practical applications, code examples, and actionable insights. We believe the best way to understand AI is by building with it, so we provide the tools and knowledge to get started immediately.",
-  },
-];
-
 const cardsImages = [
   { src: "/images/about/1st-section.jpg", title: "1st card" },
   { src: "/images/about/1st-section.jpg", title: "1st card" },
@@ -73,33 +55,21 @@ export default function AboutUsPage() {
           ]}
         />
 
-        <FocusCards cards={cardsImages}  />
-
-        {/* METHODOLOGY */}
-        <div className="space-y-12">
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-yellow-500">
-              Our Methodology
-            </h2>
-            <p className="text-[#807f7f] text-lg max-w-3xl mx-auto">
-              How we ensure every piece of content delivers maximum value to our
-              community
-            </p>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {methodology.map((item, index) => (
-              <div
-                key={index}
-                className="bg-[#191919] p-8 rounded-xl border border-gray-800 hover:border-yellow-500/30 transition-all duration-300"
-              >
-                <h3 className="text-xl font-semibold mb-4 text-yellow-500">
-                  {item.title}
-                </h3>
-                <p className="text-[#807f7f] leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+        {/* Team Stats */}
+        <div className=" p-8 mt-16">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-yellow-500">300+</div>
+              <div className="text-[#807f7f]">Resources Available</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-yellow-500">8K+</div>
+              <div className="text-[#807f7f]">Community Readers</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-yellow-500">1K+</div>
+              <div className="text-[#807f7f]">Active Users</div>
+            </div>
           </div>
         </div>
 
@@ -150,22 +120,18 @@ export default function AboutUsPage() {
           </div>
         </div>
 
-        {/* Team Stats */}
-        <div className=" p-8 mt-16">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-yellow-500">300+</div>
-              <div className="text-[#807f7f]">Resources Available</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-yellow-500">8K+</div>
-              <div className="text-[#807f7f]">Community Readers</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-yellow-500">1K+</div>
-              <div className="text-[#807f7f]">Active Users</div>
-            </div>
+        {/* METHODOLOGY */}
+        <div className="space-y-12 py-10">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-yellow-500">
+              Our Methodology
+            </h2>
+            <p className="text-[#807f7f] text-lg max-w-3xl mx-auto">
+              How we ensure every piece of content delivers maximum value to our
+              community
+            </p>
           </div>
+          <FocusCards cards={cardsImages} />
         </div>
       </div>
 
