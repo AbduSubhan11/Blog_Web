@@ -190,7 +190,9 @@ export default function BlogList() {
               </div>
             )}
             {/* Blog List */}
-            {filteredBlogs.map((blog: Blog) => (
+            {filteredBlogs
+            .filter((_blog,index) => index < 6) 
+            .map((blog: Blog) => (
               <div
                 key={blog._id}
                 className="flex flex-col md:flex-row items-center gap-6 border-t border-gray-800 pt-6"
