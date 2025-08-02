@@ -101,7 +101,7 @@ export default function FAQsSection() {
         </div>
       </section>
 
-      <div className="2xl:max-w-[1400px] w-[90%] mx-auto py-12">
+      <div className="2xl:max-w-[1400px] w-[60%] md:w-[50%] mx-auto py-12">
         {/* FAQ ITEMS */}
         <div className="space-y-4">
           {faqData.map((faq) => (
