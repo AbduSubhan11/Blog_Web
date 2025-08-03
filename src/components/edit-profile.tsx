@@ -141,9 +141,8 @@ export default function EditProfile() {
                   className="relative flex items-center justify-center w-32 h-32 rounded-full border-4 border-yellow-500 cursor-pointer hover:border-yellow-400 transition-colors group"
                 >
                   {!previewUrl ? (
-                    <div className="flex flex-col items-center text-gray-400 group-hover:text-yellow-500 transition-colors">
-                      <Camera className="w-8 h-8 mb-2" />
-                      <span className="text-xs">Upload Photo</span>
+                    <div className="flex flex-col items-center text-gray-400 group-hover:text-yellow-500 transition-colors text-xl md:text-3xl font-bold">
+                      {data?.name.slice(0,2).toUpperCase()}
                     </div>
                   ) : (
                     <Image
@@ -169,7 +168,7 @@ export default function EditProfile() {
                 </label>
               </div>
               <h2 className="text-2xl font-bold mb-2">
-                {formData.name || "Your Name"}
+                {formData?.name[0]?.toUpperCase() + formData?.name?.slice(1)  || "Your Name"}
               </h2>
               <p className="text-gray-400">
                 {formData.email || "your.email@example.com"}

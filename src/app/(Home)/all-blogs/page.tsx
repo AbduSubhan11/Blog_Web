@@ -26,7 +26,6 @@ type blog = {
 };
 
 export default function AllBlogs() {
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<blog | null>(null);
 
@@ -34,7 +33,6 @@ export default function AllBlogs() {
 
   const [user, setUser] = useState<{
     _id: string;
- 
   }>({ _id: "" });
 
   useEffect(() => {
@@ -152,7 +150,7 @@ export default function AllBlogs() {
                 key={blog._id}
                 className="bg-[#191919] flex flex-col w-full rounded-lg overflow-hidden shadow-md hover:shadow-lg transition p-3  space-y-5"
               >
-                <div className="lg:h-48 xl:h-52">
+                <div className="lg:h-56 xl:h-56">
                   <Image
                     src={blog.image}
                     alt={blog.title}
@@ -290,7 +288,30 @@ export default function AllBlogs() {
             )}
           </div>
         )}
+
       </div>
+        {/* Join Our Mission */}
+        <div className="bg-[#191919] mt-20 py-10 md:py-16">
+          <div className="bg-[#191919] text-center 2xl:max-w-[1400px] w-[90%] mx-auto space-y-6">
+            <h2 className="text-3xl font-semibold text-yellow-500">
+              Join Our Mission
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              We&apos;re always looking for passionate writers, developers, and
+              AI enthusiasts to join our team. Whether you want to contribute
+              articles, share your projects, or help us build better tools for
+              the community, there&apos;s a place for you here.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/contact"
+                className="inline-block px-6 py-3 bg-yellow-500 text-[#141414] font-semibold rounded-lg hover:bg-yellow-600 transition-colors duration-500"
+              >
+                Get in Touch
+              </Link>
+            </div>
+          </div>
+        </div>
     </section>
   );
 }

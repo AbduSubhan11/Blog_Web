@@ -114,7 +114,7 @@ export default function AboutUsPage() {
       </div>
 
       {/* Join Our Mission */}
-      <div className="bg-[#191919] mt-20 py-10">
+      <div className="bg-[#191919] mt-20 py-10 md:py-16">
         <div className="bg-[#191919] text-center 2xl:max-w-[1400px] w-[90%] mx-auto space-y-6">
           <h2 className="text-3xl font-semibold text-yellow-500">
             Join Our Mission

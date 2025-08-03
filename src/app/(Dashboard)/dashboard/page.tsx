@@ -137,13 +137,19 @@ export default function DashboardLayout() {
           {/* User Info */}
           <div className="p-6 border-b border-neutral-700">
             <div className="flex items-center gap-3">
-              <Image
-                width={40}
-                height={40}
-                src={user.profilePicture || "/placeholder.svg"}
-                alt={user.name}
-                className="w-10 h-10 rounded-full"
-              />
+              {user.profilePicture ? (
+                <Image
+                  width={40}
+                  height={40}
+                  src={user.profilePicture || "/placeholder.svg"}
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-white font-bold text-black rounded-full flex items-center justify-center">
+                  <p>{user.name.slice(0, 2).toUpperCase()}</p>
+                </div>
+              )}
               <div>
                 <h3 className="font-medium text-white">{user.name}</h3>
                 <p className="text-xs text-gray-400">
@@ -162,7 +168,7 @@ export default function DashboardLayout() {
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
               {sidebarItems
-                .filter((item) => item.label !== "Admin" || user.isAdmin) 
+                .filter((item) => item.label !== "Admin" || user.isAdmin)
                 .map((item) => (
                   <li key={item.id}>
                     <button
@@ -208,13 +214,19 @@ export default function DashboardLayout() {
                 "Dashboard"}
             </h2>
             <div className="flex items-center gap-4">
-              <Image
-                width={40}
-                height={40}
-                src={user.profilePicture || "/placeholder.svg"}
-                alt={user.name}
-                className="w-10 h-10 rounded-full"
-              />
+              {user.profilePicture ? (
+                <Image
+                  width={40}
+                  height={40}
+                  src={user.profilePicture || "/placeholder.svg"}
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-white font-bold text-black rounded-full flex items-center justify-center">
+                  <p>{user.name.slice(0, 2).toUpperCase()}</p>
+                </div>
+              )}
             </div>
           </div>
         </header>

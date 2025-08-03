@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Camera } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export default function Register() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function Register() {
 
     try {
       const res = await fetch(
-        `/api/register`, 
+        `${process.env.NEXT_PUBLIC_API_URL_AUTH}/register`,
         {
           method: "POST",
           body: form,
@@ -55,7 +56,7 @@ export default function Register() {
         router.push("/login");
       }
     } catch (error) {
-      console.error("Error:", (error as Error).message);
+      toast.error((error as Error).message);
     }
   };
 
