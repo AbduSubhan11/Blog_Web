@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const mailOptions = {
       from: email,
       to: process.env.RECEIVER_EMAIL,
-      subject: `New Contact Form Submission from FutureTech Blog: ${subject}`,
+      subject: `New Contact Form Submission from FutureTech AI Blog: ${subject}`,
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     const userMail = {
       from: process.env.GMAIL_USER,
       to: email,
-      subject: `Thanks for contacting FutureTech Blog`,
+      subject: `Thanks for contacting FutureTech AI Blog`,
       html: `
         <p>Hi <b>${name}</b>,</p>
         <p>Thanks for reaching out! We received your message:</p>
