@@ -12,8 +12,6 @@ export default function ContactSection() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const formFields = Object.fromEntries(formData.entries());
-    console.log("formData", formFields);
-
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
