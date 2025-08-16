@@ -16,7 +16,7 @@ export function Profile() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL_AUTH}/logout`, {
+      await fetch("/api/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -36,7 +36,9 @@ export function Profile() {
       <SheetTrigger>
         <Avatar>
           <AvatarImage src={data.profilePicture || ""} />
-          <AvatarFallback  className="text-black font-bold ">{data.name.slice(0,2).toUpperCase()}</AvatarFallback>
+          <AvatarFallback className="text-black font-bold ">
+            {data.name.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </SheetTrigger>
 
@@ -45,7 +47,9 @@ export function Profile() {
           <div className="flex flex-col items-center gap-3 mt-4">
             <Avatar className="w-20 h-20">
               <AvatarImage src={data.profilePicture || ""} />
-              <AvatarFallback className="text-black font-bold text-xl">{data.name.slice(0,2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback className="text-black font-bold text-xl">
+                {data.name.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
             <div className="text-center text-[#807f7f]">
               <h2 className="text-xl font-semibold ">
@@ -67,7 +71,7 @@ export function Profile() {
             <User className="w-4 h-4" />
             Edit Profile
           </Link>
-          
+
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 hover:text-gray-400"

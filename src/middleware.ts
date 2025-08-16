@@ -11,6 +11,9 @@ export function middleware(request: NextRequest) {
   if (token && privateRoute.includes(route)) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+  if(!token && route === "/create") {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   return NextResponse.next();
 }

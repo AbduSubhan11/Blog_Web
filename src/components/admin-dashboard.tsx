@@ -143,7 +143,7 @@ function AdminDashboard() {
 
           {/* CONTENT FOR USERS */}
           <TabsContent value="users">
-            {Allusers.length > 0 ? (
+            {Allusers.length ? (
               <div className="overflow-auto rounded-lg ">
                 <Table>
                   <TableHeader>
@@ -163,7 +163,7 @@ function AdminDashboard() {
                       >
                         <TableCell>
                           <Image
-                            src={user.profilePicture}
+                            src={user.profilePicture || "/placeholder.svg"}
                             alt={user.name}
                             width={60}
                             height={60}
@@ -189,14 +189,14 @@ function AdminDashboard() {
               </div>
             ) : (
               <p className="text-center text-muted-foreground mt-10">
-                No blogs available.
+                No users available.
               </p>
             )}
           </TabsContent>
 
           {/* CONTENT FOR BLOGS */}
           <TabsContent value="blogs">
-            {blogs.length > 0 ? (
+            {blogs.length  ? (
               <div className="overflow-auto rounded-lg ">
                 <Table>
                   <TableHeader>
@@ -218,7 +218,7 @@ function AdminDashboard() {
                       >
                         <TableCell>
                           <Image
-                            src={blog.image}
+                            src={blog.image || "/placeholder.svg"}
                             alt={blog.title}
                             width={80}
                             height={80}
