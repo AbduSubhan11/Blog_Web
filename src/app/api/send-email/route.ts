@@ -37,7 +37,20 @@ export async function POST(request: NextRequest) {
       `,
     };
 
+    const userMail = {
+      from: process.env.GMAIL_USER,
+      to: email,
+      subject: `Thanks for contacting FutureTech Blog`,
+      html: `
+        <p>Hi <b>${name}</b>,</p>
+        <p>Thanks for reaching out! We received your message:</p>
+        <b>Message: ${message}</b>
+        <p>We'll get back to you soon 🚀</p>
+      `,
+    };
+
     await transporter.sendMail(mailOptions);
+    await transporter.sendMail(userMail);
 
     return NextResponse.json(
       { message: "Email sent successfully!" },

@@ -11,24 +11,30 @@ export default function ContactSection() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const formFields = Object.fromEntries(formData.entries());
+    console.log("formData", formFields);
 
     try {
-     const res = await fetch("/api/send-email", {
+      const res = await fetch("/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formFields),
       });
 
       if (res.ok) {
         toast.success("Message sent successfully!");
         form.reset();
-      } else{
-        toast.error("Message not sent")
+      } else {
+        toast.error("Message not sent !");
       }
     } catch (err) {
-      toast.error(`Something went wrong. ${err instanceof Error ? err.message : String(err)}`);
+      toast.error(
+        `Something went wrong. ${
+          err instanceof Error ? err.message : String(err)
+        }`
+      );
     } finally {
       setLoading(false);
     }
@@ -47,18 +53,7 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6 text-left"
-          action="https://api.web3forms.com/submit"
-          method="POST"
-        >
-          <input
-            type="hidden"
-            name="access_key"
-            value="c4cea03b-f4fe-4951-b90f-1285bd336637"
-          />
-
+        <form onSubmit={handleSubmit} className="space-y-6 text-left">
           <div className="space-y-2">
             <label htmlFor="name" className="block text-sm text-white">
               Name
@@ -67,7 +62,7 @@ export default function ContactSection() {
               type="text"
               id="name"
               name="name"
-              placeholder="John Doe"
+              placeholder="Your name here"
               required
               className="w-full p-3 rounded bg-[#1d1d1d] border border-neutral-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
@@ -81,7 +76,20 @@ export default function ContactSection() {
               type="email"
               id="email"
               name="email"
-              placeholder="John@gmail.com"
+              placeholder="Your email here"
+              required
+              className="w-full p-3 rounded bg-[#1d1d1d] border border-neutral-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="subject" className="block text-sm text-white">
+              Subject
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="Your subject here"
               required
               className="w-full p-3 rounded bg-[#1d1d1d] border border-neutral-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
