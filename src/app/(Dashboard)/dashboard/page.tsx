@@ -68,7 +68,7 @@ export default function DashboardLayout() {
   useEffect(() => {
     const handleLogout = async () => {
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL_AUTH}/logout`, {
+        await fetch("/api/logout", {
           method: "POST",
           credentials: "include",
         });
@@ -76,7 +76,7 @@ export default function DashboardLayout() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         toast.success("Logout successful!");
-        window.location.href = "/login";
+        window.location.href = "/";
       } catch (error) {
         console.error("Logout failed", error);
       }

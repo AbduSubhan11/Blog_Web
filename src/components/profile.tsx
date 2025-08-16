@@ -25,7 +25,7 @@ export function Profile() {
       localStorage.removeItem("user");
       toast.success("Logout successful!");
 
-      window.location.href = "/login";
+      
     } catch (error) {
       console.error("Logout failed", error);
     }
