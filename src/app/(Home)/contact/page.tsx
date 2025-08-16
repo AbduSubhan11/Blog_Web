@@ -24,7 +24,7 @@ export default function ContactSection() {
       });
 
       if (res.ok) {
-        toast.success("Message sent successfully!");
+        toast.success("Message sent successfully check your email");
         form.reset();
       } else {
         toast.error("Message not sent !");
