@@ -31,6 +31,7 @@ export default function Navbar() {
             credentials: "include",
           }
         );
+        console.log(response)
         if (!response.ok) {
           console.log("token expired")
           localStorage.removeItem("token");
