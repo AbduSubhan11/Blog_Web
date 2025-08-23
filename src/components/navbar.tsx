@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Profile } from "./profile";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,35 @@ export default function Navbar() {
 
       setIsLoggedIn(!!(token && user));
     }
+
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL_AUTH}/user`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `token ${localStorage.getItem("token")}`,
+            },
+            credentials: "include",
+          }
+        );
+        if (!response.ok) {
+          console.log("token expired")
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          return;
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        toast.error(`Error: ${(error as Error).message}`);
+        return null;
+      }
+    };
+
+    fetchUser()
   }, [route]);
 
   const navLinks = [

@@ -31,7 +31,6 @@ export function Profile() {
       console.error("Logout failed", error);
     }
   };
-
   return (
     <Sheet>
       <SheetTrigger>
